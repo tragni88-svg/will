@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASSIFIED // ICARUS-V VANGUARD // VISUAL INTEL</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #333;
+            padding: 20px;
+            background: #0a0a0a;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.1);
+        }
+
+        h1 {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            letter-spacing: 5px;
+            color: #fff;
+            text-shadow: 0 0 10px #fff;
+        }
+
+        .image-frame {
+            margin: 30px 0;
+            border: 1px solid #444;
+            padding: 5px;
+            background: #000;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1) brightness(1.1);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            text-align: left;
+        }
+
+        .stat-block h3 {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .stat-block p {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff0000;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>USAF // PROJECT VANGUARD</h1>
+        <p>SUBJECT: ICARUS-V "VANGUARD" SPACE SUPERIORITY FIGHTER</p>
+        <p>LOCATION: WRIGHT-PATTERSON AFB // HANGAR 18</p>
+
+        <div class="image-frame">
+            <!-- Generating Image of Icarus-V Vanguard -->
+            <img src="https://core-normal.traeapi.us/api/ide/v1/text_to_image?prompt=futuristic%20military%20spaceplane%2C%20Icarus-V%20Vanguard%2C%20matte%20black%20obsidian%20stealth%20hull%2C%20glowing%20blue%20graviton%20drive%20underglow%2C%20chin-mounted%20laser%20cannons%2C%20parked%20in%20dark%20military%20hangar%20with%20volumetric%20lighting%2C%20hyperrealistic%2C%208k%2C%20unreal%20engine%205%20render%2C%20sci-fi%20concept%20art&image_size=landscape_16_9" alt="Icarus-V Vanguard Visualization">
+        </div>
+
+        <div class="stats">
+            <div class="stat-block">
+                <h3>PROPULSION</h3>
+                <p>GDC-Mk3 GRAVITON DRIVE</p>
+            </div>
+            <div class="stat-block">
+                <h3>ARMAMENT</h3>
+                <p>HELIOS H-V2 "GLAIVE"</p>
+            </div>
+            <div class="stat-block">
+                <h3>MANUFACTURER</h3>
+                <p>BOEING / WARDENCLYFFE</p>
+            </div>
+            <div class="stat-block">
+                <h3>STATUS</h3>
+                <p>OPERATIONAL</p>
+            </div>
+        </div>
+
+        <div class="warning">
+            WARNING: THIS DOCUMENT CONTAINS TOP SECRET // NOFORN INFORMATION. UNAUTHORIZED DISCLOSURE IS PUNISHABLE UNDER THE ESPIONAGE ACT.
+        </div>
+    </div>
+
+</body>
+</html>

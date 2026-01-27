@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo+</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            background-color: #e60012;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-weight: bold;
+            color: white;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+        .hero {
+            background-image: url('https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_2.0/c_scale,w_1200/ncom/en_US/games/switch/m/mario-kart-8-deluxe-switch/hero');
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            padding: 100px 50px;
+            color: white;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        .hero p {
+            font-size: 20px;
+            max-width: 500px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+        .play-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .play-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .game-card-title {
+            padding: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Nintendo+</div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Mario Kart 8 Deluxe</h1>
+            <p>The definitive version of Mario Kart 8. Race your friends or battle them in a revised battle mode on new and returning battle courses.</p>
+            <div class="play-button" onclick="alert('Starting Mario Kart 8 Deluxe via cloud stream... Vroom!')">
+                ▶ PLAY NOW
+            </div>
+        </div>
+
+        <h2 style="margin-top: 40px; font-size: 24px;">All Games</h2>
+        <div class="game-grid">
+            <!-- Game Cards will be dynamically inserted here -->
+            <script>
+                const games = [
+                    { title: 'Super Mario Odyssey 2', image: 'https://cdn.dribbble.com/users/1129235/screenshots/4153449/super_mario_odyssey_2_-_nintendo_switch.png' },
+                    { title: 'Mario Maker 3', image: 'https://i.ytimg.com/vi/U-P3n_Skc-E/maxresdefault.jpg' },
+                    { title: 'Super Mario Tactics', image: 'https://i.redd.it/sio89n1lq0f51.jpg' },
+                    { title: 'The Legend of Zelda: Breath of the Wild', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/t/the-legend-of-zelda-breath-of-the-wild-switch/hero' },
+                    { title: 'Super Mario Odyssey', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/s/super-mario-odyssey-switch/hero' },
+                    { title: 'Animal Crossing: New Horizons', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/a/animal-crossing-new-horizons-switch/hero' },
+                    { title: 'Super Smash Bros. Ultimate', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/s/super-smash-bros-ultimate-switch/hero' },
+                    { title: 'Pokémon Sword', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/p/pokemon-sword-switch/hero' },
+                    { title: 'Splatoon 3', image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.0/c_scale,w_800/ncom/en_US/games/switch/s/splatoon-3-switch/hero' },
+                ];
+
+                const grid = document.querySelector('.game-grid');
+                games.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.innerHTML = `
+                        <img src="${game.image}" alt="${game.title}">
+                        <div class="game-card-title">${game.title}</div>
+                    `;
+                    card.onclick = () => alert(`Launching ${game.title}...`);
+                    grid.appendChild(card);
+                });
+            </script>
+        </div>
+    </div>
+
+</body>
+</html>

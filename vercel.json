@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dropship_manager/server.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "app.paid.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/dropship_manager/server.py"
+    },
+    {
+      "src": "/",
+      "dest": "/app.paid.html"
+    }
+  ]
+}

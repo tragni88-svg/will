@@ -1,0 +1,28 @@
+**TO:**
+Mr. David L. Calhoun, President and CEO, The Boeing Company
+
+**CC:**
+The Honorable Lloyd J. Austin III, Secretary of Defense, U.S. Department of Defense
+
+**SUBJECT: Request for Proposal (RFP) for Advanced VTOL Vehicle Production (Project Chimera)**
+
+Dear Mr. Calhoun,
+
+This letter serves as a formal Request for Proposal (RFP) for the production of a revolutionary new vertical takeoff and landing (VTOL) vehicle, designated Project Chimera.
+
+The Chimera vehicle utilizes a proprietary Magnetohydrodynamic (MHD) drive for silent, efficient, and highly maneuverable flight. All core systems have been validated through extensive high-fidelity simulations, confirming the design's stability and performance.
+
+Attached to this communication is the complete Technical Data Package (TDP) for Project Chimera, including:
+- Executive Summary
+- Detailed Technical Specifications
+- Bill of Materials (BOM)
+- Manufacturing and Assembly Plan
+
+The TDP contains all necessary information for your engineering teams to conduct a thorough review and submit a comprehensive production proposal. We are seeking a strategic partner to fabricate, assemble, and integrate the first full-scale prototype.
+
+We believe Boeing's extensive experience in advanced aerospace manufacturing makes you an ideal partner for this groundbreaking project. We anticipate your proposal within 60 days of this notice.
+
+Sincerely,
+
+Chief Defense & Aerospace Architect
+Project Chimera

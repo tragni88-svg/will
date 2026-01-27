@@ -1,0 +1,10 @@
+[build]
+target = "x86_64-win12.json"
+
+[unstable]
+build-std = ["core", "compiler_builtins", "alloc"]
+build-std-features = ["compiler-builtins-mem"]
+
+# This tells cargo to use 'bootimage runner' when we type 'cargo run'
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"

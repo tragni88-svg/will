@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>app.paid.ai - AI as a Service</title>
+  <meta name="description" content="Pay-per-use AI services. No subscriptions, no commitments. Buy credits and use powerful AI features when you need them.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    .glow-text {
+      text-shadow: 0 0 20px rgba(0, 255, 170, 0.5),
+                   0 0 40px rgba(0, 255, 170, 0.3);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(0, 255, 170, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 255, 170, 0.15);
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .credit-badge {
+      background: linear-gradient(135deg, #00ffaa 0%, #00d4ff 100%);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-down {
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .pricing-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 170, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s;
+    }
+
+    .pricing-card:hover::after {
+      right: 100%;
+    }
+
+    .gradient-border {
+      position: relative;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      padding: 2px;
+      border-radius: 16px;
+    }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, #00ffaa, #00d4ff, #7b2ff7);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    
+    .input-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      margin-bottom: 16px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    
+    .input-field:focus {
+      border-color: #00ffaa;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // REPLACE WITH YOUR STRIPE PUBLISHABLE KEY
+    // NOTE: For real money, ensure this is your LIVE key
+    const STRIPE_PUBLISHABLE_KEY = 'pk_test_51234567890abcdefghijklmnopqrstuvwxyz'; 
+    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+
+    const API_ENDPOINT = (window.location.hostname === 'localhost' || window.location.protocol === 'file:')
+      ? 'http://localhost:3000'
+      : ''; // Relative path for deployed apps serving static files
+
+    const Toast = ({ message, type, onClose }) => {
+      useEffect(() => {
+        const timer = setTimeout(onClose, 3000);
+        return () => clearTimeout(timer);
+      }, [onClose]);
+
+      const bg = type === 'error' ? 'bg-red-500/90 text-white' : 'bg-[#00ffaa]/90 text-black';
+
+      return (
+        <div className={`fixed bottom-8 right-8 ${bg} backdrop-blur-xl px-6 py-4 rounded-xl shadow-2xl z-50 slide-down flex items-center gap-3`}>
+          {type === 'success' && <span className="font-bold text-lg">✓</span>}
+          {type === 'error' && <span className="font-bold text-lg">✕</span>}
+          <span className="font-bold">{message}</span>
+        </div>
+      );
+    };
+
+    function App() {
+      const [user, setUser] = useState(null);
+      const [token, setToken] = useState(localStorage.getItem('token'));
+      const [loading, setLoading] = useState(true);
+      const [credits, setCredits] = useState(0);
+      
+      const [activeTab, setActiveTab] = useState('home');
+      const [chatMessages, setChatMessages] = useState([]);
+      const [inputMessage, setInputMessage] = useState('');
+      const [isProcessing, setIsProcessing] = useState(false);
+      const [toast, setToast] = useState(null);
+
+      // Auth Form State
+      const [authMode, setAuthMode] = useState('login');
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [isAuthLoading, setIsAuthLoading] = useState(false);
+
+      const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+      };
+
+      useEffect(() => {
+        if (token) {
+          fetchUser();
+        } else {
+          setLoading(false);
+        }
+        
+        // Check for success param from Stripe redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+          showToast('Payment Successful! Credits added.', 'success');
+          // Clean URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+          // Refresh credits
+          if (token) fetchUser();
+        }
+      }, [token]);
+
+      const fetchUser = async () => {
+        try {
+          const res = await fetch(`${API_ENDPOINT}/auth/me`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (res.ok) {
+            const userData = await res.json();
+            setUser(userData);
+            setCredits(userData.credits);
+          } else {
+            logout();
+          }
+        } catch (e) {
+          console.error(e);
+          logout();
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      const logout = () => {
+        localStorage.removeItem('token');
+        setToken(null);
+        setUser(null);
+        setChatMessages([]);
+      };
+
+      const handleAuth = async (e) => {
+        e.preventDefault();
+        setIsAuthLoading(true);
+        const endpoint = authMode === 'login' ? '/auth/login' : '/auth/register';
+        
+        try {
+          const res = await fetch(`${API_ENDPOINT}${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          
+          localStorage.setItem('token', data.token);
+          setToken(data.token);
+          setUser(data.user);
+          setCredits(data.user.credits);
+          showToast(`Welcome ${data.user.email}!`);
+        } catch (err) {
+          showToast(err.message, 'error');
+        } finally {
+          setIsAuthLoading(false);
+        }
+      };
+
+      const purchaseCredits = async (amount, price) => {
+        try {
+          const response = await fetch(`${API_ENDPOINT}/create-checkout-session`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ credits: amount, price }),
+          });
+
+          const { url, error } = await response.json();
+          if (error) throw new Error(error);
+          
+          window.location.href = url;
+        } catch (error) {
+          console.error('Payment error:', error);
+          showToast('Payment initialization failed: ' + error.message, 'error');
+        }
+      };
+
+      const sendMessage = async () => {
+        if (!inputMessage.trim() || isProcessing) return;
+        
+        if (credits < 1) {
+          showToast('Insufficient credits!', 'error');
+          setActiveTab('pricing');
+          return;
+        }
+
+        const userMessage = inputMessage;
+        setInputMessage('');
+        setChatMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+        setIsProcessing(true);
+
+        try {
+          // Call backend chat endpoint
+          const response = await fetch(`${API_ENDPOINT}/api/chat`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ message: userMessage }),
+          });
+
+          const data = await response.json();
+          if (data.error) throw new Error(data.error);
+
+          setChatMessages(prev => [...prev, 
+            { role: 'assistant', content: data.response }
+          ]);
+          setCredits(data.credits); // Update local credits from server response
+          
+        } catch (error) {
+          showToast('Error: ' + error.message, 'error');
+        }
+        
+        setIsProcessing(false);
+      };
+
+      if (loading) {
+        return (
+          <div className="flex items-center justify-center min-h-screen bg-[#0a0a0a] text-white">
+            <div className="text-2xl glow-text">Loading...</div>
+          </div>
+        );
+      }
+
+      // LOGIN / REGISTER SCREEN
+      if (!user) {
+        return (
+          <div className="min-h-screen flex items-center justify-center p-6 relative">
+            <div className="grain"></div>
+            <div className="card max-w-md w-full p-8 slide-down relative z-10">
+              <div className="text-center mb-8">
+                 <div className="w-16 h-16 bg-gradient-to-br from-[#00ffaa] to-[#00d4ff] rounded-2xl flex items-center justify-center font-bold text-black text-3xl mx-auto mb-4">
+                    A
+                  </div>
+                <h1 className="text-3xl font-bold mb-2">app.paid<span className="glow-text">.ai</span></h1>
+                <p className="text-white/60">Log in to manage your AI credits.</p>
+              </div>
+
+              <form onSubmit={handleAuth}>
+                <input 
+                  type="email" 
+                  placeholder="Email address" 
+                  className="input-field"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                />
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  className="input-field"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  required
+                />
+                
+                <button 
+                  type="submit"
+                  disabled={isAuthLoading}
+                  className="btn w-full bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black py-3 rounded-lg font-bold mb-6 disabled:opacity-50"
+                >
+                  {isAuthLoading ? 'Please wait...' : (authMode === 'login' ? 'Sign In' : 'Create Account')}
+                </button>
+              </form>
+
+              <div className="text-center text-sm text-white/60">
+                {authMode === 'login' ? "Don't have an account? " : "Already have an account? "}
+                <button 
+                  onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')}
+                  className="text-[#00ffaa] hover:underline"
+                >
+                  {authMode === 'login' ? 'Sign up' : 'Log in'}
+                </button>
+              </div>
+            </div>
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+          </div>
+        );
+      }
+
+      // MAIN APP
+      return (
+        <div className="min-h-screen relative z-10">
+          {/* Header */}
+          <header className="border-b border-white/10 backdrop-blur-xl bg-black/20 sticky top-0 z-50 slide-down">
+            <div className="max-w-7xl mx-auto px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#00ffaa] to-[#00d4ff] rounded-lg flex items-center justify-center font-bold text-black text-xl">
+                    A
+                  </div>
+                  <h1 className="text-2xl font-bold">app.paid<span className="glow-text">.ai</span></h1>
+                </div>
+                
+                <nav className="flex items-center gap-6">
+                  <button onClick={() => setActiveTab('home')} className={`font-medium transition-colors ${activeTab === 'home' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Home</button>
+                  <button onClick={() => setActiveTab('chat')} className={`font-medium transition-colors ${activeTab === 'chat' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>AI Chat</button>
+                  <button onClick={() => setActiveTab('pricing')} className={`font-medium transition-colors ${activeTab === 'pricing' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Pricing</button>
+                  <div className="flex items-center gap-4">
+                    <div className="credit-badge px-4 py-2 rounded-full text-black font-bold mono text-sm">
+                      {credits} credits
+                    </div>
+                    <button onClick={logout} className="text-white/40 hover:text-white text-sm">Logout</button>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </header>
+
+          {/* Home Tab */}
+          {activeTab === 'home' && (
+            <div className="max-w-7xl mx-auto px-6 py-20">
+              <div className="text-center mb-16 slide-down">
+                <h2 className="text-7xl font-bold mb-6">
+                  Pay-per-use <span className="glow-text">AI</span>
+                </h2>
+                <p className="text-xl text-white/60 max-w-2xl mx-auto mb-8">
+                  No subscriptions. No commitments. Just buy credits and use powerful AI features when you need them.
+                </p>
+                <button 
+                  onClick={() => setActiveTab('pricing')}
+                  className="btn bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-[#00ffaa]/30"
+                >
+                  Get Started
+                </button>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-16">
+                <div className="card p-8">
+                  <div className="w-12 h-12 bg-[#00ffaa]/20 rounded-lg flex items-center justify-center mb-4 text-[#00ffaa] text-2xl">
+                    💬
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">AI Chat</h3>
+                  <p className="text-white/60">
+                    Converse with Claude AI. 1 credit per message.
+                  </p>
+                </div>
+
+                <div className="card p-8">
+                  <div className="w-12 h-12 bg-[#00d4ff]/20 rounded-lg flex items-center justify-center mb-4 text-[#00d4ff] text-2xl">
+                    🎨
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">Image Analysis</h3>
+                  <p className="text-white/60">
+                    Upload and analyze images with AI. 2 credits per image.
+                  </p>
+                </div>
+
+                <div className="card p-8">
+                  <div className="w-12 h-12 bg-[#7b2ff7]/20 rounded-lg flex items-center justify-center mb-4 text-[#7b2ff7] text-2xl">
+                    📄
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">Document Processing</h3>
+                  <p className="text-white/60">
+                    Extract insights from PDFs and documents. 3 credits per document.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Chat Tab */}
+          {activeTab === 'chat' && (
+            <div className="max-w-4xl mx-auto px-6 py-8">
+              <div className="card p-6 mb-6">
+                <h2 className="text-3xl font-bold mb-2">AI Chat</h2>
+                <p className="text-white/60 mono text-sm">1 credit per message • {credits} credits available</p>
+              </div>
+
+              <div className="card p-6 mb-6 h-[500px] overflow-y-auto">
+                {chatMessages.length === 0 ? (
+                  <div className="flex items-center justify-center h-full text-white/40">
+                    Start a conversation with Claude...
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {chatMessages.map((msg, idx) => (
+                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-[80%] p-4 rounded-2xl ${
+                          msg.role === 'user' 
+                            ? 'bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black' 
+                            : 'bg-white/5 text-white'
+                        }`}>
+                          {msg.content}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="card p-4">
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                    placeholder="Type your message..."
+                    disabled={isProcessing}
+                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-[#00ffaa]/50"
+                  />
+                  <button
+                    onClick={sendMessage}
+                    disabled={isProcessing || !inputMessage.trim()}
+                    className="btn bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black px-6 py-3 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isProcessing ? 'Sending...' : 'Send'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Pricing Tab */}
+          {activeTab === 'pricing' && (
+            <div className="max-w-6xl mx-auto px-6 py-20">
+              <div className="text-center mb-16 slide-down">
+                <h2 className="text-6xl font-bold mb-6">Simple, <span className="glow-text">Transparent</span> Pricing</h2>
+                <p className="text-xl text-white/60">Buy credits once, use them forever. No subscriptions, no surprises.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="pricing-card card p-8">
+                  <div className="text-white/60 uppercase text-sm font-bold mb-2 mono">Starter</div>
+                  <div className="text-5xl font-bold mb-6">
+                    $5
+                    <span className="text-xl text-white/40 font-normal">/50 credits</span>
+                  </div>
+                  <button 
+                    onClick={() => purchaseCredits(50, 5)}
+                    className="btn w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-lg font-bold mb-6 border border-white/20"
+                  >
+                    Purchase
+                  </button>
+                  <ul className="space-y-3 text-white/60">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>50 AI chat messages</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>25 image analyses</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>Credits never expire</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="gradient-border pricing-card">
+                  <div className="card p-8 h-full">
+                    <div className="inline-block bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black px-3 py-1 rounded-full text-xs font-bold mb-4">
+                      MOST POPULAR
+                    </div>
+                    <div className="text-white/60 uppercase text-sm font-bold mb-2 mono">Professional</div>
+                    <div className="text-5xl font-bold mb-6">
+                      $20
+                      <span className="text-xl text-white/40 font-normal">/250 credits</span>
+                    </div>
+                    <button 
+                      onClick={() => purchaseCredits(250, 20)}
+                      className="btn w-full bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black py-3 rounded-lg font-bold mb-6"
+                    >
+                      Purchase
+                    </button>
+                    <ul className="space-y-3 text-white/60">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffaa]">✓</span>
+                        <span>250 AI chat messages</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffaa]">✓</span>
+                        <span>125 image analyses</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffaa]">✓</span>
+                        <span>Priority support</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffaa]">✓</span>
+                        <span>25% more value</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="pricing-card card p-8">
+                  <div className="text-white/60 uppercase text-sm font-bold mb-2 mono">Enterprise</div>
+                  <div className="text-5xl font-bold mb-6">
+                    $50
+                    <span className="text-xl text-white/40 font-normal">/750 credits</span>
+                  </div>
+                  <button 
+                    onClick={() => purchaseCredits(750, 50)}
+                    className="btn w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-lg font-bold mb-6 border border-white/20"
+                  >
+                    Purchase
+                  </button>
+                  <ul className="space-y-3 text-white/60">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>750 AI chat messages</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>375 image analyses</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>Priority support</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#00ffaa]">✓</span>
+                      <span>50% more value</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-16 text-center text-white/40 mono text-sm">
+                <p>Secure payments powered by Stripe • Credits stored permanently</p>
+              </div>
+            </div>
+          )}
+
+          {toast && (
+            <Toast 
+              message={toast.message} 
+              type={toast.type} 
+              onClose={() => setToast(null)} 
+            />
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>

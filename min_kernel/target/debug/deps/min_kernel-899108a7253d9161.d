@@ -1,0 +1,6 @@
+C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\debug\deps\min_kernel-899108a7253d9161.d: src\lib.rs src\vga_buffer.rs
+
+C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\debug\deps\libmin_kernel-899108a7253d9161.rmeta: src\lib.rs src\vga_buffer.rs
+
+src\lib.rs:
+src\vga_buffer.rs:

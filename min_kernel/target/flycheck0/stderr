@@ -1,0 +1,633 @@
+   0.148587100s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("min_kernel", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\src\\lib.rs", Edition2021) }
+   0.149448400s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\min_kernel-d0e15bd93bee00a4\test-lib-min_kernel`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.166607000s  INFO prepare_target{force=false package_id=bootloader v0.9.33 target="bootloader"}: cargo::core::compiler::fingerprint: fingerprint error for bootloader v0.9.33/Check { test: false }/TargetInner { ..: lib_target("bootloader", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bootloader-0.9.33\\src\\lib.rs", Edition2018) }
+   0.166640400s  INFO prepare_target{force=false package_id=bootloader v0.9.33 target="bootloader"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\bootloader-e8add0fa6e61319d\lib-bootloader`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.169019600s  INFO prepare_target{force=false package_id=linked_list_allocator v0.9.1 target="linked_list_allocator"}: cargo::core::compiler::fingerprint: fingerprint error for linked_list_allocator v0.9.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("linked_list_allocator", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\linked_list_allocator-0.9.1\\src\\lib.rs", Edition2015) }
+   0.169063000s  INFO prepare_target{force=false package_id=linked_list_allocator v0.9.1 target="linked_list_allocator"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\linked_list_allocator-745aeaf133495c35\lib-linked_list_allocator`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.169444200s  INFO prepare_target{force=false package_id=spinning_top v0.2.5 target="spinning_top"}: cargo::core::compiler::fingerprint: fingerprint error for spinning_top v0.2.5/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("spinning_top", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spinning_top-0.2.5\\src\\lib.rs", Edition2018) }
+   0.169463000s  INFO prepare_target{force=false package_id=spinning_top v0.2.5 target="spinning_top"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\spinning_top-8eb799dba3ad0b90\lib-spinning_top`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.169818200s  INFO prepare_target{force=false package_id=lock_api v0.4.14 target="lock_api"}: cargo::core::compiler::fingerprint: fingerprint error for lock_api v0.4.14/Check { test: false }/TargetInner { ..: lib_target("lock_api", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\lock_api-0.4.14\\src\\lib.rs", Edition2021) }
+   0.169836600s  INFO prepare_target{force=false package_id=lock_api v0.4.14 target="lock_api"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\lock_api-4955a46b31d9c25c\lib-lock_api`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.170145500s  INFO prepare_target{force=false package_id=scopeguard v1.2.0 target="scopeguard"}: cargo::core::compiler::fingerprint: fingerprint error for scopeguard v1.2.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("scopeguard", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\scopeguard-1.2.0\\src\\lib.rs", Edition2015) }
+   0.170164600s  INFO prepare_target{force=false package_id=scopeguard v1.2.0 target="scopeguard"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\scopeguard-5d7e2e68a0b28ba3\lib-scopeguard`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.170892100s  INFO prepare_target{force=false package_id=polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai) target="polaris_ai"}: cargo::core::compiler::fingerprint: fingerprint error for polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("polaris_ai", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\polaris_ai\\src\\lib.rs", Edition2024) }
+   0.170914600s  INFO prepare_target{force=false package_id=polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai) target="polaris_ai"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\polaris_ai-df58e0db9eb0c395\lib-polaris_ai`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.171577100s  INFO prepare_target{force=false package_id=quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor) target="quantum_compositor"}: cargo::core::compiler::fingerprint: fingerprint error for quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("quantum_compositor", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\quantum_compositor\\src\\lib.rs", Edition2024) }
+   0.171600800s  INFO prepare_target{force=false package_id=quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor) target="quantum_compositor"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\quantum_compositor-fbcb3a3f7ac08ae5\lib-quantum_compositor`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.172200500s  INFO prepare_target{force=false package_id=volatile v0.2.7 target="volatile"}: cargo::core::compiler::fingerprint: fingerprint error for volatile v0.2.7/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("volatile", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\volatile-0.2.7\\src\\lib.rs", Edition2015) }
+   0.172221800s  INFO prepare_target{force=false package_id=volatile v0.2.7 target="volatile"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\volatile-9df6119043a4ae40\lib-volatile`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.173989100s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("min_kernel", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\src\\lib.rs", Edition2021) }
+   0.174027600s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\min_kernel-3a2b3edc7d415420\lib-min_kernel`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.174458200s  INFO prepare_target{force=false package_id=bootloader v0.9.33 target="bootloader"}: cargo::core::compiler::fingerprint: fingerprint error for bootloader v0.9.33/Check { test: false }/TargetInner { ..: lib_target("bootloader", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bootloader-0.9.33\\src\\lib.rs", Edition2018) }
+   0.174477300s  INFO prepare_target{force=false package_id=bootloader v0.9.33 target="bootloader"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\bootloader-1976f5b83c711787\lib-bootloader`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.175236400s  INFO prepare_target{force=false package_id=linked_list_allocator v0.9.1 target="linked_list_allocator"}: cargo::core::compiler::fingerprint: fingerprint error for linked_list_allocator v0.9.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("linked_list_allocator", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\linked_list_allocator-0.9.1\\src\\lib.rs", Edition2015) }
+   0.175259800s  INFO prepare_target{force=false package_id=linked_list_allocator v0.9.1 target="linked_list_allocator"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\linked_list_allocator-b364c6d20f68b0fc\lib-linked_list_allocator`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.175652300s  INFO prepare_target{force=false package_id=spinning_top v0.2.5 target="spinning_top"}: cargo::core::compiler::fingerprint: fingerprint error for spinning_top v0.2.5/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("spinning_top", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spinning_top-0.2.5\\src\\lib.rs", Edition2018) }
+   0.175673200s  INFO prepare_target{force=false package_id=spinning_top v0.2.5 target="spinning_top"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\spinning_top-00227f25e53daf73\lib-spinning_top`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.176030800s  INFO prepare_target{force=false package_id=lock_api v0.4.14 target="lock_api"}: cargo::core::compiler::fingerprint: fingerprint error for lock_api v0.4.14/Check { test: false }/TargetInner { ..: lib_target("lock_api", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\lock_api-0.4.14\\src\\lib.rs", Edition2021) }
+   0.176049100s  INFO prepare_target{force=false package_id=lock_api v0.4.14 target="lock_api"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\lock_api-e3993e1adca1d119\lib-lock_api`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.176366600s  INFO prepare_target{force=false package_id=scopeguard v1.2.0 target="scopeguard"}: cargo::core::compiler::fingerprint: fingerprint error for scopeguard v1.2.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("scopeguard", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\scopeguard-1.2.0\\src\\lib.rs", Edition2015) }
+   0.176385500s  INFO prepare_target{force=false package_id=scopeguard v1.2.0 target="scopeguard"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\scopeguard-7087cbca97790a9c\lib-scopeguard`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.177143200s  INFO prepare_target{force=false package_id=polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai) target="polaris_ai"}: cargo::core::compiler::fingerprint: fingerprint error for polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("polaris_ai", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\polaris_ai\\src\\lib.rs", Edition2024) }
+   0.177168100s  INFO prepare_target{force=false package_id=polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai) target="polaris_ai"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\polaris_ai-836d6316a8880198\lib-polaris_ai`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.177974000s  INFO prepare_target{force=false package_id=quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor) target="quantum_compositor"}: cargo::core::compiler::fingerprint: fingerprint error for quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("quantum_compositor", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\quantum_compositor\\src\\lib.rs", Edition2024) }
+   0.178002600s  INFO prepare_target{force=false package_id=quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor) target="quantum_compositor"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\quantum_compositor-47447880fd521979\lib-quantum_compositor`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.178610300s  INFO prepare_target{force=false package_id=volatile v0.2.7 target="volatile"}: cargo::core::compiler::fingerprint: fingerprint error for volatile v0.2.7/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("volatile", ["lib"], "C:\\Users\\bigwi\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\volatile-0.2.7\\src\\lib.rs", Edition2015) }
+   0.178629800s  INFO prepare_target{force=false package_id=volatile v0.2.7 target="volatile"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\volatile-54d6bc931f4e74ad\lib-volatile`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.179417000s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel)/Check { test: true }/TargetInner { name: "min_kernel", doc: true, ..: with_path("C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\src\\main.rs", Edition2021) }
+   0.179441500s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\min_kernel-a8aa3c9c93bdc65f\test-bin-min_kernel`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.179827700s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("min_kernel", ["lib"], "C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\src\\lib.rs", Edition2021) }
+   0.179849500s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\min_kernel-0f4227b2d9abe4b4\lib-min_kernel`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.180323600s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel)/Check { test: false }/TargetInner { name: "min_kernel", doc: true, ..: with_path("C:\\Users\\bigwi\\Documents\\trae_projects\\google social media\\min_kernel\\src\\main.rs", Edition2021) }
+   0.180345200s  INFO prepare_target{force=false package_id=min_kernel v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel) target="min_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\.fingerprint\min_kernel-1a936aefea0957bb\bin-min_kernel`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+    Checking scopeguard v1.2.0
+    Checking volatile v0.2.7
+    Checking quantum_compositor v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\quantum_compositor)
+    Checking polaris_ai v0.1.0 (C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\polaris_ai)
+    Checking bootloader v0.9.33
+error: could not compile `polaris_ai` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `volatile` (lib) due to 1 previous error
+error: could not compile `polaris_ai` (lib) due to 1 previous error
+error: could not compile `bootloader` (lib) due to 1 previous error
+error: could not compile `bootloader` (lib) due to 1 previous error
+error: could not compile `scopeguard` (lib) due to 1 previous error
+error: could not compile `quantum_compositor` (lib) due to 1 previous error
+error: could not compile `volatile` (lib) due to 1 previous error
+error: could not compile `scopeguard` (lib) due to 1 previous error
+error: could not compile `quantum_compositor` (lib) due to 1 previous error

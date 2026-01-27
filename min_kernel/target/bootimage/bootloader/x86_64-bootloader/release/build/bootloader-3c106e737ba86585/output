@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\Cargo.toml
+cargo:rustc-link-search=native=C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\bootimage\bootloader\x86_64-bootloader\release\build\bootloader-3c106e737ba86585\out
+cargo:rustc-link-lib=static=kernel_bin-min_kernel
+cargo:rerun-if-env-changed=KERNEL
+cargo:rerun-if-env-changed=KERNEL_MANIFEST
+cargo:rerun-if-changed=C:\Users\bigwi\Documents\trae_projects\google social media\min_kernel\target\x86_64-win12\debug\min_kernel
+cargo:rerun-if-changed=build.rs

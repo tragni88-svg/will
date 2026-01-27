@@ -1,0 +1,20 @@
+
+[package]
+name = "min_kernel"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+polaris_ai = { path = "./polaris_ai" }
+quantum_compositor = { path = "./quantum_compositor" }
+bootloader = "0.9.8"
+volatile = "0.2.6"
+linked_list_allocator = "0.9.0"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"

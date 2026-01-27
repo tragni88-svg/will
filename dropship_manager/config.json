@@ -1,0 +1,40 @@
+{
+    "financials": {
+        "min_profit_margin_usd": 8.00,
+        "platform_fees_percentage": {
+            "shopify": 2.9,
+            "amazon": 15.0,
+            "ebay": 12.9
+        },
+        "ad_spend_percentage": 5.0
+    },
+    "accounts": {
+        "payout_beneficiary": "William Tragni"
+    },
+    "platforms": {
+        "shopify": {
+            "api_key": "YOUR_SHOPIFY_API_KEY",
+            "api_secret": "YOUR_SHOPIFY_API_SECRET",
+            "store_url": "YOUR_SHOPIFY_STORE_URL"
+        },
+        "amazon": {
+            "seller_id": "YOUR_AMAZON_SELLER_ID",
+            "mws_auth_token": "YOUR_MWS_AUTH_TOKEN"
+        },
+        "ebay": {
+            "app_id": "YOUR_EBAY_APP_ID",
+            "cert_id": "YOUR_EBAY_CERT_ID",
+            "dev_id": "YOUR_EBAY_DEV_ID",
+            "auth_token": "YOUR_EBAY_AUTH_TOKEN"
+        }
+    },
+    "suppliers": {
+        "aliexpress": {
+            "app_key": "YOUR_ALIEXPRESS_APP_KEY",
+            "app_secret": "YOUR_ALIEXPRESS_APP_SECRET",
+            "rapidapi_key": "YOUR_RAPIDAPI_KEY",
+            "min_supplier_rating": 95,
+            "max_shipping_days": 20
+        }
+    }
+}
