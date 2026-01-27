@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>app.paid.ai - AI as a Service</title>
   <meta name="description" content="Pay-per-use AI services. No subscriptions, no commitments. Buy credits and use powerful AI features when you need them.">
+  <meta name="keywords" content="AI, Artificial Intelligence, Pay-per-use AI, AI Credits, No Subscription AI, GPT-4, Claude, Image Analysis">
+  
+  <!-- Social Media / Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://will-7bu9.onrender.com">
+  <meta property="og:title" content="app.paid.ai - The Future of Pay-As-You-Go AI">
+  <meta property="og:description" content="Stop paying monthly subscriptions. Buy AI credits once, use them forever. Access powerful AI tools instantly.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://will-7bu9.onrender.com">
+  <meta property="twitter:title" content="app.paid.ai - The Future of Pay-As-You-Go AI">
+  <meta property="twitter:description" content="Stop paying monthly subscriptions. Buy AI credits once, use them forever.">
+  <meta property="twitter:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -199,6 +214,42 @@
       );
     };
 
+    const BLOG_POSTS = [
+      {
+        id: 1,
+        title: "Why Monthly AI Subscriptions Are a Scam",
+        excerpt: "You're paying $20/month for ChatGPT but only using it twice a week. Here's why the pay-as-you-go model is mathematically superior.",
+        date: "January 15, 2024",
+        content: [
+          "The average user wastes 80% of their monthly AI subscription value. It's the gym membership model all over again.",
+          "With app.paid.ai, you buy credits once and they never expire. If you don't use AI for a month, you pay $0. That's how it should be.",
+          "We calculated that switching to a credit-based model saves the average freelancer over $200 per year."
+        ]
+      },
+      {
+        id: 2,
+        title: "How to Automate Dropshipping with AI",
+        excerpt: "Use our Image Analysis tool to write viral product descriptions in seconds. A guide for e-commerce entrepreneurs.",
+        date: "January 20, 2024",
+        content: [
+          "Dropshipping is a volume game. Writing unique descriptions for 50 products takes days. With AI, it takes minutes.",
+          "Simply upload your product image to our Image Analysis tool (2 credits). Ask it to 'Write a viral TikTok caption and a professional Shopify description'.",
+          "The result? Higher conversion rates and hours of time saved."
+        ]
+      },
+      {
+        id: 3,
+        title: "The Future of Generative AI",
+        excerpt: "What's coming next in GPT-5 and Claude 3? Stay ahead of the curve with our tech analysis.",
+        date: "January 22, 2024",
+        content: [
+          "Generative AI is moving from 'chatbots' to 'agents'. Soon, AI won't just talk; it will do.",
+          "Our platform is built to integrate these new models the moment they launch, without you needing to upgrade your plan.",
+          "Stay tuned for our upcoming 'Agent Mode' update."
+        ]
+      }
+    ];
+
     function App() {
       const [user, setUser] = useState(null);
       const [token, setToken] = useState(localStorage.getItem('token'));
@@ -210,6 +261,18 @@
       const [inputMessage, setInputMessage] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
       const [toast, setToast] = useState(null);
+      const [selectedPost, setSelectedPost] = useState(null);
+
+      // Tool States
+      const [roastUrl, setRoastUrl] = useState('');
+      const [roastResult, setRoastResult] = useState(null);
+      
+      const [resumeText, setResumeText] = useState('');
+      const [jobDesc, setJobDesc] = useState('');
+      const [coverLetterResult, setCoverLetterResult] = useState(null);
+      
+      const [hookNiche, setHookNiche] = useState('');
+      const [hookResult, setHookResult] = useState(null);
 
       // Auth Form State
       const [authMode, setAuthMode] = useState('login');
@@ -432,15 +495,19 @@
                   <h1 className="text-2xl font-bold">app.paid<span className="glow-text">.ai</span></h1>
                 </div>
                 
-                <nav className="flex items-center gap-6">
-                  <button onClick={() => setActiveTab('home')} className={`font-medium transition-colors ${activeTab === 'home' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Home</button>
-                  <button onClick={() => setActiveTab('chat')} className={`font-medium transition-colors ${activeTab === 'chat' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>AI Chat</button>
-                  <button onClick={() => setActiveTab('pricing')} className={`font-medium transition-colors ${activeTab === 'pricing' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Pricing</button>
-                  <div className="flex items-center gap-4">
-                    <div className="credit-badge px-4 py-2 rounded-full text-black font-bold mono text-sm">
-                      {credits} credits
+                <nav className="flex items-center gap-4 text-sm font-medium overflow-x-auto">
+                  <button onClick={() => setActiveTab('home')} className={`whitespace-nowrap transition-colors ${activeTab === 'home' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Home</button>
+                  <button onClick={() => setActiveTab('chat')} className={`whitespace-nowrap transition-colors ${activeTab === 'chat' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Chat</button>
+                  <button onClick={() => setActiveTab('roast')} className={`whitespace-nowrap transition-colors ${activeTab === 'roast' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Roast 🔥</button>
+                  <button onClick={() => setActiveTab('cover-letter')} className={`whitespace-nowrap transition-colors ${activeTab === 'cover-letter' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Cover Letter</button>
+                  <button onClick={() => setActiveTab('hooks')} className={`whitespace-nowrap transition-colors ${activeTab === 'hooks' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Hooks</button>
+                  <button onClick={() => setActiveTab('pricing')} className={`whitespace-nowrap transition-colors ${activeTab === 'pricing' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Pricing</button>
+                  <button onClick={() => { setActiveTab('blog'); setSelectedPost(null); }} className={`whitespace-nowrap transition-colors ${activeTab === 'blog' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Blog</button>
+                  <div className="flex items-center gap-3 ml-2 pl-4 border-l border-white/10">
+                    <div className="credit-badge px-3 py-1 rounded-full text-black font-bold mono text-xs whitespace-nowrap">
+                      {credits} cr
                     </div>
-                    <button onClick={logout} className="text-white/40 hover:text-white text-sm">Logout</button>
+                    <button onClick={logout} className="text-white/40 hover:text-white text-xs">Logout</button>
                   </div>
                 </nav>
               </div>
@@ -476,25 +543,197 @@
                   </p>
                 </div>
 
-                <div className="card p-8">
-                  <div className="w-12 h-12 bg-[#00d4ff]/20 rounded-lg flex items-center justify-center mb-4 text-[#00d4ff] text-2xl">
-                    🎨
+                <div onClick={() => setActiveTab('roast')} className="card p-8 cursor-pointer hover:border-[#00ffaa]/50">
+                  <div className="w-12 h-12 bg-[#00ffaa]/20 rounded-lg flex items-center justify-center mb-4 text-[#00ffaa] text-2xl">
+                    🔥
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">Image Analysis</h3>
+                  <h3 className="text-2xl font-bold mb-3">Roast My Website</h3>
                   <p className="text-white/60">
-                    Upload and analyze images with AI. 2 credits per image.
+                    Get a ruthless critique of your landing page to increase conversions. 5 credits.
                   </p>
                 </div>
 
-                <div className="card p-8">
-                  <div className="w-12 h-12 bg-[#7b2ff7]/20 rounded-lg flex items-center justify-center mb-4 text-[#7b2ff7] text-2xl">
+                <div onClick={() => setActiveTab('cover-letter')} className="card p-8 cursor-pointer hover:border-[#00d4ff]/50">
+                  <div className="w-12 h-12 bg-[#00d4ff]/20 rounded-lg flex items-center justify-center mb-4 text-[#00d4ff] text-2xl">
                     📄
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">Document Processing</h3>
+                  <h3 className="text-2xl font-bold mb-3">Cover Letter AI</h3>
                   <p className="text-white/60">
-                    Extract insights from PDFs and documents. 3 credits per document.
+                    Paste your resume and job description. Get a perfect letter in seconds. 10 credits.
                   </p>
                 </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                 <div onClick={() => setActiveTab('hooks')} className="card p-8 cursor-pointer hover:border-[#7b2ff7]/50">
+                  <div className="w-12 h-12 bg-[#7b2ff7]/20 rounded-lg flex items-center justify-center mb-4 text-[#7b2ff7] text-2xl">
+                    🎣
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">Viral Hooks</h3>
+                  <p className="text-white/60">
+                    Generate 50 scroll-stopping hooks for TikTok & Reels. 3 credits.
+                  </p>
+                </div>
+
+                 <div onClick={() => setActiveTab('chat')} className="card p-8 cursor-pointer hover:border-white/50">
+                  <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-4 text-white text-2xl">
+                    💬
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">AI Chat</h3>
+                  <p className="text-white/60">
+                    General purpose assistant. 1 credit/msg.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Roast Tab */}
+          {activeTab === 'roast' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Roast My Website 🔥</h2>
+                <p className="text-white/60">Enter your URL. We'll tell you why it's not converting. (Cost: 5 Credits)</p>
+              </div>
+              <div className="card p-8">
+                <input 
+                  type="url" 
+                  placeholder="https://your-website.com" 
+                  className="input-field mb-4"
+                  value={roastUrl}
+                  onChange={e => setRoastUrl(e.target.value)}
+                />
+                <button 
+                  onClick={async () => {
+                    if (credits < 5) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/roast`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ url: roastUrl })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setRoastResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !roastUrl}
+                  className="btn w-full bg-gradient-to-r from-[#ff4d4d] to-[#f9cb28] text-black py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Roasting...' : 'Roast It (5 Credits)'}
+                </button>
+                
+                {roastResult && (
+                  <div className="mt-8 p-6 bg-white/5 rounded-xl border border-white/10 whitespace-pre-line">
+                    {roastResult}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Cover Letter Tab */}
+          {activeTab === 'cover-letter' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Instant Cover Letter 📄</h2>
+                <p className="text-white/60">Paste your resume and the job description. (Cost: 10 Credits)</p>
+              </div>
+              <div className="card p-8">
+                <textarea 
+                  placeholder="Paste your Resume here..." 
+                  className="input-field h-32"
+                  value={resumeText}
+                  onChange={e => setResumeText(e.target.value)}
+                />
+                <textarea 
+                  placeholder="Paste Job Description here..." 
+                  className="input-field h-32"
+                  value={jobDesc}
+                  onChange={e => setJobDesc(e.target.value)}
+                />
+                <button 
+                  onClick={async () => {
+                    if (credits < 10) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/cover-letter`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ resume: resumeText, jobDescription: jobDesc })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setCoverLetterResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !resumeText || !jobDesc}
+                  className="btn w-full bg-gradient-to-r from-[#00d4ff] to-[#00ffaa] text-black py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Writing...' : 'Generate Letter (10 Credits)'}
+                </button>
+                
+                {coverLetterResult && (
+                  <div className="mt-8 p-6 bg-white/5 rounded-xl border border-white/10 whitespace-pre-line">
+                    {coverLetterResult}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Hooks Tab */}
+          {activeTab === 'hooks' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Viral Hooks Generator 🎣</h2>
+                <p className="text-white/60">Enter your niche. Get 5 viral hooks. (Cost: 3 Credits)</p>
+              </div>
+              <div className="card p-8">
+                <input 
+                  type="text" 
+                  placeholder="E.g. Fitness, Real Estate, Crypto..." 
+                  className="input-field mb-4"
+                  value={hookNiche}
+                  onChange={e => setHookNiche(e.target.value)}
+                />
+                <button 
+                  onClick={async () => {
+                    if (credits < 3) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/hooks`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ niche: hookNiche })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setHookResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !hookNiche}
+                  className="btn w-full bg-gradient-to-r from-[#7b2ff7] to-[#f72f2f] text-white py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Generating...' : 'Get Viral Hooks (3 Credits)'}
+                </button>
+                
+                {hookResult && (
+                  <div className="mt-8 space-y-3">
+                    {hookResult.map((hook, idx) => (
+                      <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 font-bold text-lg">
+                        {hook}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -662,6 +901,69 @@
               <div className="mt-16 text-center text-white/40 mono text-sm">
                 <p>Secure payments powered by Stripe • Credits stored permanently</p>
               </div>
+            </div>
+          )}
+
+          {/* Blog Tab */}
+          {activeTab === 'blog' && (
+            <div className="max-w-4xl mx-auto px-6 py-20">
+              {!selectedPost ? (
+                /* Blog List */
+                <div className="slide-down">
+                  <div className="text-center mb-16">
+                    <h2 className="text-5xl font-bold mb-6">Latest <span className="glow-text">Insights</span></h2>
+                    <p className="text-xl text-white/60">News, tutorials, and analysis on the AI revolution.</p>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    {BLOG_POSTS.map(post => (
+                      <div 
+                        key={post.id} 
+                        onClick={() => setSelectedPost(post)}
+                        className="card p-8 cursor-pointer group hover:bg-white/5 transition-all"
+                      >
+                        <div className="text-[#00ffaa] mono text-sm mb-2">{post.date}</div>
+                        <h3 className="text-2xl font-bold mb-3 group-hover:text-[#00ffaa] transition-colors">{post.title}</h3>
+                        <p className="text-white/60 text-lg mb-4">{post.excerpt}</p>
+                        <div className="text-white/40 group-hover:text-white flex items-center gap-2 font-bold text-sm uppercase tracking-wider">
+                          Read Article <span>→</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                /* Single Post */
+                <div className="slide-down">
+                  <button 
+                    onClick={() => setSelectedPost(null)}
+                    className="text-white/60 hover:text-white mb-8 flex items-center gap-2 font-bold"
+                  >
+                    ← Back to Articles
+                  </button>
+                  
+                  <article className="card p-10 md:p-14">
+                    <div className="text-[#00ffaa] mono text-sm mb-4">{selectedPost.date}</div>
+                    <h1 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">{selectedPost.title}</h1>
+                    
+                    <div className="space-y-6 text-lg text-white/80 leading-relaxed">
+                      {selectedPost.content.map((paragraph, idx) => (
+                        <p key={idx}>{paragraph}</p>
+                      ))}
+                    </div>
+
+                    <div className="mt-12 pt-12 border-t border-white/10">
+                      <h4 className="font-bold text-white mb-4">Ready to try it yourself?</h4>
+                      <button 
+                        onClick={() => setActiveTab('pricing')}
+                        className="btn bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black px-8 py-3 rounded-lg font-bold"
+                      >
+                        Get AI Credits
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              )}
             </div>
           )}
 
