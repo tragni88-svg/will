@@ -167,6 +167,54 @@ app.post('/api/hooks', authenticateToken, async (req, res) => {
   }
 });
 
+// 4. Cold Email Generator (Cost: 10 Credits)
+app.post('/api/email', authenticateToken, async (req, res) => {
+  try {
+    const { recipient, offer } = req.body;
+    const userId = req.user.id;
+    const COST = 10;
+
+    if (!recipient || !offer) return res.status(400).json({ error: 'Recipient and Offer required' });
+
+    const newBalance = await db.deductCredits(userId, COST);
+    await new Promise(r => setTimeout(r, 2000));
+    
+    const response = `Subject: Quick question about ${recipient}\n\nHi there,\n\nI noticed you're doing great work at ${recipient}. I help companies like yours with ${offer}.\n\nWould you be open to a 10-minute chat next week?\n\nBest,\n[Your Name]`;
+
+    res.json({ response, credits: newBalance });
+  } catch (err) {
+    if (err.message === 'Insufficient credits') return res.status(402).json({ error: 'Insufficient credits' });
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// 5. Twitter Thread Generator (Cost: 5 Credits)
+app.post('/api/thread', authenticateToken, async (req, res) => {
+  try {
+    const { topic } = req.body;
+    const userId = req.user.id;
+    const COST = 5;
+
+    if (!topic) return res.status(400).json({ error: 'Topic is required' });
+
+    const newBalance = await db.deductCredits(userId, COST);
+    await new Promise(r => setTimeout(r, 2000));
+    
+    const response = [
+      `1/ Here is everything you need to know about ${topic}. A thread 🧵👇`,
+      `2/ First, understand that ${topic} is changing rapidly.`,
+      `3/ The biggest mistake people make is ignoring the fundamentals.`,
+      `4/ If you want to master ${topic}, start today.`,
+      `5/ Follow me for more insights on ${topic}! #growth`
+    ];
+
+    res.json({ response, credits: newBalance });
+  } catch (err) {
+    if (err.message === 'Insufficient credits') return res.status(402).json({ error: 'Insufficient credits' });
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Login
 app.post('/auth/login', async (req, res) => {
   try {

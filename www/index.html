@@ -248,6 +248,13 @@
       const [hookNiche, setHookNiche] = useState('');
       const [hookResult, setHookResult] = useState(null);
 
+      const [emailRecipient, setEmailRecipient] = useState('');
+      const [emailOffer, setEmailOffer] = useState('');
+      const [emailResult, setEmailResult] = useState(null);
+
+      const [threadTopic, setThreadTopic] = useState('');
+      const [threadResult, setThreadResult] = useState(null);
+
       // Auth Form State
       const [authMode, setAuthMode] = useState('login');
       const [email, setEmail] = useState('');
@@ -475,6 +482,8 @@
                   <button onClick={() => setActiveTab('roast')} className={`whitespace-nowrap transition-colors ${activeTab === 'roast' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Roast 🔥</button>
                   <button onClick={() => setActiveTab('cover-letter')} className={`whitespace-nowrap transition-colors ${activeTab === 'cover-letter' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Cover Letter</button>
                   <button onClick={() => setActiveTab('hooks')} className={`whitespace-nowrap transition-colors ${activeTab === 'hooks' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Hooks</button>
+                  <button onClick={() => setActiveTab('email')} className={`whitespace-nowrap transition-colors ${activeTab === 'email' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Cold Email</button>
+                  <button onClick={() => setActiveTab('thread')} className={`whitespace-nowrap transition-colors ${activeTab === 'thread' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Threads 🧵</button>
                   <button onClick={() => setActiveTab('pricing')} className={`whitespace-nowrap transition-colors ${activeTab === 'pricing' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Pricing</button>
                   <button onClick={() => { setActiveTab('blog'); setSelectedPost(null); }} className={`whitespace-nowrap transition-colors ${activeTab === 'blog' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Blog</button>
                   <div className="flex items-center gap-3 ml-2 pl-4 border-l border-white/10">
@@ -704,6 +713,110 @@
                     {hookResult.map((hook, idx) => (
                       <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 font-bold text-lg">
                         {hook}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Email Tab */}
+          {activeTab === 'email' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Cold Email Generator 📧</h2>
+                <p className="text-white/60">Generate high-converting sales emails. (Cost: 10 Credits)</p>
+              </div>
+              <div className="card p-8">
+                <input 
+                  type="text" 
+                  placeholder="Recipient Name & Company (e.g. John at Apple)" 
+                  className="input-field mb-4"
+                  value={emailRecipient}
+                  onChange={e => setEmailRecipient(e.target.value)}
+                />
+                <textarea 
+                  placeholder="What is your offer/service?" 
+                  className="input-field h-32 mb-4"
+                  value={emailOffer}
+                  onChange={e => setEmailOffer(e.target.value)}
+                />
+                <button 
+                  onClick={async () => {
+                    if (credits < 10) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/email`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ recipient: emailRecipient, offer: emailOffer })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setEmailResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !emailRecipient || !emailOffer}
+                  className="btn w-full bg-gradient-to-r from-[#00ffaa] to-[#7b2ff7] text-black py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Writing...' : 'Generate Email (10 Credits)'}
+                </button>
+                
+                {emailResult && (
+                  <div className="mt-8 p-6 bg-white/5 rounded-xl border border-white/10 whitespace-pre-line">
+                    {emailResult}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Thread Tab */}
+          {activeTab === 'thread' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Twitter Thread Maker 🧵</h2>
+                <p className="text-white/60">Turn any topic into a viral thread. (Cost: 5 Credits)</p>
+              </div>
+              <div className="card p-8">
+                <input 
+                  type="text" 
+                  placeholder="Enter a topic or article URL..." 
+                  className="input-field mb-4"
+                  value={threadTopic}
+                  onChange={e => setThreadTopic(e.target.value)}
+                />
+                <button 
+                  onClick={async () => {
+                    if (credits < 5) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/thread`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ topic: threadTopic })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setThreadResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !threadTopic}
+                  className="btn w-full bg-gradient-to-r from-[#1da1f2] to-[#00d4ff] text-white py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Generating...' : 'Generate Thread (5 Credits)'}
+                </button>
+                
+                {threadResult && (
+                  <div className="mt-8 space-y-4">
+                    {threadResult.map((tweet, idx) => (
+                      <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10">
+                        {tweet}
                       </div>
                     ))}
                   </div>
