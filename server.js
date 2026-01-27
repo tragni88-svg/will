@@ -44,7 +44,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 });
 
 app.use(express.json());
-app.use(express.static('.'));
+app.use(express.static('www'));
 
 // Auth Middleware
 function authenticateToken(req, res, next) {

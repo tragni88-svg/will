@@ -9,14 +9,14 @@
   
   <!-- Social Media / Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://will-7bu9.onrender.com">
+  <meta property="og:url" content="https://app.paid.ai">
   <meta property="og:title" content="app.paid.ai - The Future of Pay-As-You-Go AI">
   <meta property="og:description" content="Stop paying monthly subscriptions. Buy AI credits once, use them forever. Access powerful AI tools instantly.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://will-7bu9.onrender.com">
+  <meta property="twitter:url" content="https://app.paid.ai">
   <meta property="twitter:title" content="app.paid.ai - The Future of Pay-As-You-Go AI">
   <meta property="twitter:description" content="Stop paying monthly subscriptions. Buy AI credits once, use them forever.">
   <meta property="twitter:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop">
@@ -193,9 +193,8 @@
     const STRIPE_PUBLISHABLE_KEY = 'pk_test_51234567890abcdefghijklmnopqrstuvwxyz'; 
     const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
-    const API_ENDPOINT = (window.location.hostname === 'localhost' || window.location.protocol === 'file:')
-      ? 'http://localhost:3000'
-      : ''; // Relative path for deployed apps serving static files
+    // For Mobile App (Capacitor), we must use the absolute Production URL
+    const API_ENDPOINT = 'https://will-7bu9.onrender.com';
 
     const Toast = ({ message, type, onClose }) => {
       useEffect(() => {
@@ -214,43 +213,18 @@
       );
     };
 
-    const BLOG_POSTS = [
-      {
-        id: 1,
-        title: "Why Monthly AI Subscriptions Are a Scam",
-        excerpt: "You're paying $20/month for ChatGPT but only using it twice a week. Here's why the pay-as-you-go model is mathematically superior.",
-        date: "January 15, 2024",
-        content: [
-          "The average user wastes 80% of their monthly AI subscription value. It's the gym membership model all over again.",
-          "With app.paid.ai, you buy credits once and they never expire. If you don't use AI for a month, you pay $0. That's how it should be.",
-          "We calculated that switching to a credit-based model saves the average freelancer over $200 per year."
-        ]
-      },
-      {
-        id: 2,
-        title: "How to Automate Dropshipping with AI",
-        excerpt: "Use our Image Analysis tool to write viral product descriptions in seconds. A guide for e-commerce entrepreneurs.",
-        date: "January 20, 2024",
-        content: [
-          "Dropshipping is a volume game. Writing unique descriptions for 50 products takes days. With AI, it takes minutes.",
-          "Simply upload your product image to our Image Analysis tool (2 credits). Ask it to 'Write a viral TikTok caption and a professional Shopify description'.",
-          "The result? Higher conversion rates and hours of time saved."
-        ]
-      },
-      {
-        id: 3,
-        title: "The Future of Generative AI",
-        excerpt: "What's coming next in GPT-5 and Claude 3? Stay ahead of the curve with our tech analysis.",
-        date: "January 22, 2024",
-        content: [
-          "Generative AI is moving from 'chatbots' to 'agents'. Soon, AI won't just talk; it will do.",
-          "Our platform is built to integrate these new models the moment they launch, without you needing to upgrade your plan.",
-          "Stay tuned for our upcoming 'Agent Mode' update."
-        ]
-      }
-    ];
+    // Blog posts are loaded dynamically
 
     function App() {
+      const [blogPosts, setBlogPosts] = useState([]);
+      
+      useEffect(() => {
+        fetch('blog_posts.json')
+          .then(res => res.json())
+          .then(data => setBlogPosts(data))
+          .catch(err => console.error(err));
+      }, []);
+
       const [user, setUser] = useState(null);
       const [token, setToken] = useState(localStorage.getItem('token'));
       const [loading, setLoading] = useState(true);
@@ -916,7 +890,7 @@
                   </div>
                   
                   <div className="space-y-6">
-                    {BLOG_POSTS.map(post => (
+                    {blogPosts.map(post => (
                       <div 
                         key={post.id} 
                         onClick={() => setSelectedPost(post)}
