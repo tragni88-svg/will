@@ -1,6 +1,6 @@
 {
   "name": "app-paid-ai-backend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Backend for app.paid.ai payment processing",
   "main": "server.js",
   "scripts": {
