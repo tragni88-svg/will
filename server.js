@@ -231,17 +231,17 @@ app.post('/api/drip', authenticateToken, async (req, res) => {
       {
         day: "Day 1 (Value)",
         subject: `How to solve [Problem] with ${product}`,
-        body: `Hi there,\n\nI saw you are interested in ${product}. Did you know that most ${targetAudience} struggle with [Pain Point]?\n\nHere is a quick tip...`
+        content: `Hi there,\n\nI saw you are interested in ${product}. Did you know that most ${targetAudience} struggle with [Pain Point]?\n\nHere is a quick tip...`
       },
       {
         day: "Day 3 (Soft Sell)",
         subject: `The secret to better results`,
-        body: `Hey,\n\nJust wanted to follow up. Imagine if you could [Benefit] without [Effort].\n\nThat's exactly what we built ${product} for.`
+        content: `Hey,\n\nJust wanted to follow up. Imagine if you could [Benefit] without [Effort].\n\nThat's exactly what we built ${product} for.`
       },
       {
         day: "Day 7 (Hard Sell)",
         subject: `Last chance to get 20% off`,
-        body: `Hi,\n\nI don't want you to miss out. ${product} is changing the game for ${targetAudience}.\n\nClick here to get started.`
+        content: `Hi,\n\nI don't want you to miss out. ${product} is changing the game for ${targetAudience}.\n\nClick here to get started.`
       }
     ];
 
