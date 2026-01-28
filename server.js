@@ -215,6 +215,43 @@ app.post('/api/thread', authenticateToken, async (req, res) => {
   }
 });
 
+// 6. Drip Campaign Generator (Cost: 20 Credits)
+app.post('/api/drip', authenticateToken, async (req, res) => {
+  try {
+    const { product, targetAudience } = req.body;
+    const userId = req.user.id;
+    const COST = 20;
+
+    if (!product || !targetAudience) return res.status(400).json({ error: 'Product and Audience required' });
+
+    const newBalance = await db.deductCredits(userId, COST);
+    await new Promise(r => setTimeout(r, 3000));
+    
+    const response = [
+      {
+        day: "Day 1 (Value)",
+        subject: `How to solve [Problem] with ${product}`,
+        body: `Hi there,\n\nI saw you are interested in ${product}. Did you know that most ${targetAudience} struggle with [Pain Point]?\n\nHere is a quick tip...`
+      },
+      {
+        day: "Day 3 (Soft Sell)",
+        subject: `The secret to better results`,
+        body: `Hey,\n\nJust wanted to follow up. Imagine if you could [Benefit] without [Effort].\n\nThat's exactly what we built ${product} for.`
+      },
+      {
+        day: "Day 7 (Hard Sell)",
+        subject: `Last chance to get 20% off`,
+        body: `Hi,\n\nI don't want you to miss out. ${product} is changing the game for ${targetAudience}.\n\nClick here to get started.`
+      }
+    ];
+
+    res.json({ response, credits: newBalance });
+  } catch (err) {
+    if (err.message === 'Insufficient credits') return res.status(402).json({ error: 'Insufficient credits' });
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Login
 app.post('/auth/login', async (req, res) => {
   try {

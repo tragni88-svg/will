@@ -255,6 +255,11 @@
       const [threadTopic, setThreadTopic] = useState('');
       const [threadResult, setThreadResult] = useState(null);
 
+      // Autoresponder States
+      const [autoresponderProduct, setAutoresponderProduct] = useState('');
+      const [autoresponderAudience, setAutoresponderAudience] = useState('');
+      const [autoresponderResult, setAutoresponderResult] = useState(null);
+
       // Auth Form State
       const [authMode, setAuthMode] = useState('login');
       const [email, setEmail] = useState('');
@@ -484,6 +489,7 @@
                   <button onClick={() => setActiveTab('hooks')} className={`whitespace-nowrap transition-colors ${activeTab === 'hooks' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Hooks</button>
                   <button onClick={() => setActiveTab('email')} className={`whitespace-nowrap transition-colors ${activeTab === 'email' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Cold Email</button>
                   <button onClick={() => setActiveTab('thread')} className={`whitespace-nowrap transition-colors ${activeTab === 'thread' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Threads 🧵</button>
+                  <button onClick={() => setActiveTab('autoresponder')} className={`whitespace-nowrap transition-colors ${activeTab === 'autoresponder' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Autoresponder 📧</button>
                   <button onClick={() => setActiveTab('pricing')} className={`whitespace-nowrap transition-colors ${activeTab === 'pricing' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Pricing</button>
                   <button onClick={() => { setActiveTab('blog'); setSelectedPost(null); }} className={`whitespace-nowrap transition-colors ${activeTab === 'blog' ? 'text-[#00ffaa]' : 'text-white/60 hover:text-white'}`}>Blog</button>
                   <div className="flex items-center gap-3 ml-2 pl-4 border-l border-white/10">
@@ -555,6 +561,16 @@
                   <h3 className="text-2xl font-bold mb-3">Viral Hooks</h3>
                   <p className="text-white/60">
                     Generate 50 scroll-stopping hooks for TikTok & Reels. 3 credits.
+                  </p>
+                </div>
+
+                 <div onClick={() => setActiveTab('autoresponder')} className="card p-8 cursor-pointer hover:border-[#00ffaa]/50">
+                  <div className="w-12 h-12 bg-[#00ffaa]/20 rounded-lg flex items-center justify-center mb-4 text-[#00ffaa] text-2xl">
+                    📧
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">Email Autoresponder</h3>
+                  <p className="text-white/60">
+                    Generate 3-day email sequences that convert. 20 credits.
                   </p>
                 </div>
 
@@ -817,6 +833,77 @@
                     {threadResult.map((tweet, idx) => (
                       <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10">
                         {tweet}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Autoresponder Tab */}
+          {activeTab === 'autoresponder' && (
+            <div className="max-w-3xl mx-auto px-6 py-12">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold mb-4">Email Autoresponder 📧</h2>
+                <p className="text-white/60">Generate a 3-day email sequence that converts. (Cost: 20 Credits)</p>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Product/Service</label>
+                  <textarea 
+                    placeholder="Describe your product or service..." 
+                    className="input-field h-32 mb-4"
+                    value={autoresponderProduct}
+                    onChange={e => setAutoresponderProduct(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Target Audience</label>
+                  <textarea 
+                    placeholder="Who is your ideal customer?" 
+                    className="input-field h-32 mb-4"
+                    value={autoresponderAudience}
+                    onChange={e => setAutoresponderAudience(e.target.value)}
+                  />
+                </div>
+
+                <button 
+                  onClick={async () => {
+                    if (credits < 20) return showToast('Insufficient credits', 'error');
+                    setIsProcessing(true);
+                    try {
+                      const res = await fetch(`${API_ENDPOINT}/api/drip`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ product: autoresponderProduct, targetAudience: autoresponderAudience })
+                      });
+                      const data = await res.json();
+                      if (data.error) throw new Error(data.error);
+                      setAutoresponderResult(data.response);
+                      setCredits(data.credits);
+                    } catch (e) { showToast(e.message, 'error'); }
+                    setIsProcessing(false);
+                  }}
+                  disabled={isProcessing || !autoresponderProduct || !autoresponderAudience}
+                  className="btn w-full bg-gradient-to-r from-[#00ffaa] to-[#00d4ff] text-black py-3 rounded-lg font-bold"
+                >
+                  {isProcessing ? 'Generating...' : 'Generate Sequence (20 Credits)'}
+                </button>
+                
+                {autoresponderResult && (
+                  <div className="mt-8 space-y-6">
+                    {autoresponderResult.map((email, idx) => (
+                      <div key={idx} className="p-6 bg-white/5 rounded-lg border border-white/10">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-lg font-bold text-[#00ffaa]">Day {idx + 1}</h3>
+                          <span className="text-sm text-white/60 mono">{email.subject}</span>
+                        </div>
+                        <div className="text-white/80 whitespace-pre-line">
+                          {email.content}
+                        </div>
                       </div>
                     ))}
                   </div>
