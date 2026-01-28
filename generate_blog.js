@@ -93,5 +93,5 @@ professions.forEach(prof => {
   });
 });
 
-fs.writeFileSync('blog_posts.json', JSON.stringify(posts, null, 2));
-console.log(`Generated ${posts.length} blog posts to blog_posts.json`);
+fs.writeFileSync('www/blog_posts.json', JSON.stringify(posts, null, 2));
+console.log(`Generated ${posts.length} blog posts to www/blog_posts.json`);
